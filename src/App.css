@@ -1,38 +1,1096 @@
-.App {
-  text-align: center;
+/* ==========================================================================
+   CSS Variables
+   ========================================================================== */
+:root {
+  --green: #0f513f;
+  --gold: #d6a84b;
+  --cream: #f8f4ea;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ==========================================================================
+     Navbar
+     ========================================================================== */
+.navbar {
+  height: 76px;
+  background: #fffdf9;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid #e9e3d8;
+}
+.nav-inner {
+  max-width: 1330px;
+  height: 100%;
+  margin: auto;
+  padding: 0 20px 0 55px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.brand {
+  color: var(--green);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 25px;
+  line-height: 0.72;
+  display: flex;
+  flex-direction: column;
+  letter-spacing: -1.7px;
+  min-width: 88px;
+}
+.brand img {
+  width: auto;
+  height: 250px;
+  object-fit: contain;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+/* LTR overrides: mirror layout/spacing/borders when the site is rendered left-to-right */
+.site-shell[dir="ltr"] .hero-content {
+  direction: ltr;
+  padding: 57px 35px 55px clamp(35px, 7vw, 115px);
+}
+.site-shell[dir="ltr"] .impact-stats {
+  direction: ltr;
+}
+.site-shell[dir="ltr"] .stat + .stat:after {
+  right: auto;
+  left: -36px;
+}
+.site-shell[dir="ltr"] .trust-item {
+  border-left: 0;
+  border-right: 1px solid #edeae3;
+}
+.site-shell[dir="ltr"] .trust-item:last-child {
+  border-right: 0;
+}
+.site-shell[dir="ltr"] .custom-amount input {
+  direction: ltr;
+  text-align: left;
+}
+
+.nav-links {
+  display: flex;
+  gap: 26px;
+  flex: 1;
+  justify-content: flex-start;
+}
+.nav-links a {
+  color: #252c28;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 26px 0 20px;
+  border-bottom: 2px solid transparent;
+}
+.nav-links .active {
+  color: var(--green);
+  border-color: var(--green);
+}
+.nav-actions {
+  display: flex;
+  gap: 10px;
+}
+.nav-actions .account {
+  height: 40px;
+  padding: 0 14px;
+  gap: 6px;
+  font-size: 12px;
+}
+.account,
+.outline-button {
+  border: 1px solid #dfd9cc;
+  background: #fff;
+  color: #36423d;
+  border-radius: 9px;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 13px;
+}
+.account svg {
+  color: var(--gold);
+}
+.donate-button {
+  height: 50px;
+  padding: 0 24px;
+  border-radius: 8px;
+  background: var(--green);
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.25s;
+}
+.nav-actions .donate-button {
+  height: 40px;
+  padding: 0 16px;
+  gap: 7px;
+  font-size: 12px;
+}
+.donate-button:hover,
+.gold-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.menu-button {
+  display: none;
+  border: 0;
+  background: none;
+  color: var(--green);
+}
+
+/* ==========================================================================
+     Hero Section
+     ========================================================================== */
+.hero {
+  min-height: 440px;
+  display: grid;
+  grid-template-columns: 52% 48%;
+  direction: ltr;
+  background: #fbfaf6;
+}
+
+.hero-media {
+  position: relative;
+  min-height: 440px;
+  overflow: hidden;
+}
+
+.hero-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1300&q=85")
+    center/cover;
+  transform-origin: center center;
+  animation: heroImageZoomOut 3s ease-out 1 forwards;
+  will-change: transform;
+}
+
+@keyframes heroImageZoomOut {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(1);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@media (prefers-reduced-motion: reduce) {
+  .hero-media::before {
+    animation: none;
+    transform: scale(1);
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 40%, #fbfaf6),
+    linear-gradient(0deg, #0c251938, transparent 60%);
+}
+
+.hero-content {
+  direction: rtl;
+  padding: 57px clamp(35px, 7vw, 115px) 55px 35px;
+  align-self: center;
+  max-width: 700px;
+  z-index: 0;
+  position: relative;
+}
+.eyebrow {
+  font-size: 14px;
+  color: #315747;
+  font-weight: 700;
+  margin: 0 0 9px;
+}
+.hero h1 {
+  font-size: clamp(47px, 5vw, 72px);
+  line-height: 1.23;
+  letter-spacing: -3px;
+  margin: 0;
+  font-weight: 800;
+}
+.hero h1 span {
+  color: var(--green);
+}
+.hero-copy {
+  font-size: 15px;
+  line-height: 2;
+  color: #4a514d;
+  max-width: 540px;
+  margin: 17px 0 30px;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.hero-actions .big {
+  height: 46px;
+  min-width: 0;
+  padding: 0 17px;
+  font-size: 12px;
+}
+.hero-actions .outline-button {
+  height: 46px;
+  padding: 0 17px;
+  font-size: 12px;
+}
+.hero-actions a {
+  white-space: nowrap;
+}
+.impact-stats {
+  position: absolute;
+  bottom: 24px;
+  right: auto;
+  left: 24px;
+  width: min(540px, calc(100% - 48px));
+  height: 141px;
+  background: linear-gradient(135deg, #126046, #0d4335);
+  border-radius: 0 35px 0 0;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 3;
+  direction: rtl;
+}
+.stat {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 120px;
+  position: relative;
+}
+.stat + .stat:after {
+  content: "";
+  position: absolute;
+  right: -36px;
+  height: 78px;
+  top: 3px;
+  width: 1px;
+  background: #fff2;
+}
+.gold-icon {
+  color: var(--gold);
+  height: 32px;
+}
+.stat strong {
+  font-size: 19px;
+  margin: 5px 0 2px;
+}
+.stat span {
+  font-size: 12px;
+}
+
+/* ==========================================================================
+     Trust Bar
+     ========================================================================== */
+.trust-wrap {
+  max-width: 1295px;
+  padding: 0 24px;
+  /* Lower the trust card while keeping its existing centered width and design */
+  margin: 70px auto;
+  position: relative;
+  z-index: 6;
+}
+.trust-bar {
+  min-height: 108px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 7px 22px #372e1b12;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 14px 25px;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 0 24px;
+  border-left: 1px solid #edeae3;
+}
+.trust-item:last-child {
+  border: 0;
+}
+.trust-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.trust-item strong {
+  font-size: 13px;
+}
+.trust-item small {
+  font-size: 11px;
+  color: #696e69;
+}
+.trust-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #f8f4e9;
+  color: #35614e;
+}
+
+/* ==========================================================================
+     Mission / Vision / Goals Section
+     ========================================================================== */
+.mvg-section {
+  position: relative;
+  border-radius: 18px;
+  max-width: 1295px;
+  margin: 45px auto 56px;
+  overflow: hidden;
+}
+
+/* Background image is absolutely positioned so the box's height is driven
+     by the content in .mvg-grid, not by the image's natural size */
+.mvg-bg-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.mvg-grid {
+  /* Stays in normal document flow, so this element determines .mvg-section's height */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  padding: 56px 48px;
+  align-items: center;
+  border: 1px solid #ede3cc;
+  border-radius: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.mvg-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 44px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.mvg-col:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 0;
+  width: 1px;
+  background: #e5d8bb;
+}
+
+.mvg-icon-circle {
+  width: 98px;
+  height: 98px;
+  border-radius: 50%;
+  background: #dfe7d9;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin-bottom: 24px;
+}
+.mvg-icon-circle svg {
+  width: 40px;
+  height: 40px;
 }
 
-.App-link {
-  color: #61dafb;
+.mvg-title {
+  margin: 0 0 14px;
+  font-size: 23px;
+  font-weight: 700;
+  color: #123e32;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.mvg-underline {
+  display: block;
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  background: #d9ad57;
+  margin-bottom: 24px;
+}
+
+.mvg-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 2.15;
+  color: #6b6a63;
+  max-width: 260px;
+}
+
+.mvg-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: right;
+  font-size: 15.5px;
+  line-height: 2.25;
+  color: #6b6a63;
+}
+.mvg-list li {
+  position: relative;
+  padding-right: 18px;
+}
+.mvg-list li::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 13px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d9ad57;
+}
+
+/* ==========================================================================
+     Projects Section
+     ========================================================================== */
+.projects-section {
+  max-width: 1295px;
+  min-height: 510px;
+  padding: 52px 24px 88px;
+  margin: 45px auto 56px;
+}
+.projects-column {
+  min-width: 0;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 7px 0 34px;
+}
+.section-heading h2 {
+  font-size: 30px;
+  margin: 0;
+  color: #174d3b;
+}
+.section-heading h2 em {
+  font-size: 17px;
+  font-style: normal;
+}
+.project-carousel {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  cursor: grab;
+  touch-action: pan-x;
+  padding: 4px 0 16px;
+}
+.project-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* Square cards: aspect-ratio keeps height equal to width at any screen size */
+.project-card {
+  flex: 0 0 calc((100% - 48px) / 3);
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  scroll-snap-align: start;
+  background: #fff;
+  border: 1px solid #eee9df;
+  border-radius: 11px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px #382a160a;
+  transition: 0.25s;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 24px #253a2d21;
+}
+.project-image {
+  height: 165px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+.project-image:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #0003, transparent);
+}
+.category {
+  position: absolute;
+  z-index: 1;
+  right: 9px;
+  top: 9px;
+  background: #13614ddd;
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 9px;
+}
+.project-body {
+  padding: 16px 17px 18px;
+}
+.project-body h3 {
+  font-size: 16px;
+  margin: 0 0 5px;
+}
+.project-body p {
+  font-size: 11px;
+  color: #777;
+  margin: 0 0 13px;
+  min-height: 19px;
+}
+.progress-label {
+  font-size: 11px;
+  color: #234e40;
+  margin-bottom: 2px;
+}
+.progress {
+  background: #eeece7;
+  height: 7px;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.progress i {
+  display: block;
+  height: 100%;
+  background: #155744;
+  border-radius: 5px;
+}
+.money {
+  font-size: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: #5f655f;
+  margin-top: 13px;
+}
+.money b {
+  font-size: 11px;
+  color: #283c33;
+}
+.slider-dots {
+  text-align: center;
+  margin-top: 18px;
+}
+.slider-dots button {
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  width: 7px;
+  height: 7px;
+  background: #e2dfd7;
+  border-radius: 50%;
+  margin: 0 4px;
+  cursor: pointer;
+}
+.slider-dots button.active {
+  background: #126046;
+}
+
+/* ==========================================================================
+     Footer
+     ========================================================================== */
+footer {
+  background: #123e32;
+  color: #f5f0e5;
+  padding: 54px 24px 0;
+}
+.footer-inner {
+  max-width: 1245px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1.05fr;
+  gap: 42px;
+  direction: inherit;
+}
+.footer-logo-placeholder {
+  width: 58px;
+  height: 58px;
+  border: 1px solid rgba(245, 240, 229, 0.32);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 16px;
+}
+footer h3 {
+  font-size: 16px;
+  margin: 0 0 16px;
+  color: #e8bd66;
+  font-weight: 700;
+}
+footer p {
+  font-size: 13px;
+  line-height: 2;
+  color: #e8ede9;
+  max-width: 320px;
+  margin: 0;
+}
+
+/* Column 1: logo + contact info */
+.footer-about {
+  display: flex;
+  flex-direction: column;
+}
+.footer-about a,
+.footer-about span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #eef2ef;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0 0 9px;
+}
+.footer-about a:hover {
+  color: #e8bd66;
+}
+
+/* Column 2: quick links */
+.footer-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #eef2ef;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0 0 9px;
+}
+.footer-links a:hover {
+  color: #e8bd66;
+}
+
+/* Column 3: important links */
+.footer-important-links a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #eef2ef;
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.8;
+  margin: 0 0 9px;
+}
+.footer-important-links a:hover {
+  color: #e8bd66;
+}
+
+/* Column 4: newsletter signup + social links */
+.footer-newsletter-follow {
+  display: flex;
+  flex-direction: column;
+}
+.footer-newsletter-form {
+  display: flex;
+  gap: 8px;
+}
+.footer-newsletter-input {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(245, 240, 229, 0.32);
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f0e5;
+  font-size: 13px;
+}
+.footer-newsletter-input::placeholder {
+  color: rgba(245, 240, 229, 0.55);
+}
+.footer-newsletter-submit {
+  flex-shrink: 0;
+  min-height: 42px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #d9ad57;
+  color: #123e32;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.footer-newsletter-submit:hover {
+  background: #c9973f;
+}
+.footer-follow-label {
+  margin: 20px 0 10px;
+}
+
+/* Social media icons with comfortable spacing between them */
+.social-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f0e5;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.social-icon:hover {
+  background: #d9ad57;
+  color: #123e32;
+}
+
+/* Bottom bar: copyright + legal links */
+.footer-bottom {
+  max-width: 1245px;
+  margin: 42px auto 0;
+  padding: 18px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11px;
+  color: #cfe0d8;
+}
+.footer-bottom nav {
+  display: flex;
+  gap: 18px;
+}
+.footer-bottom a {
+  color: #cfe0d8;
+  text-decoration: none;
+}
+.footer-bottom a:hover {
+  color: #e8bd66;
+}
+
+/* ==========================================================================
+     Responsive Styles
+     All breakpoints are consolidated here, ordered from widest to narrowest,
+     with each breakpoint appearing only once.
+     ========================================================================== */
+
+/* --- <= 1024px --- */
+/* --- <= 1024px --- */
+@media (max-width: 1024px) {
+  .navbar {
+    height: 72px;
   }
-  to {
-    transform: rotate(360deg);
+  .nav-inner {
+    gap: 4px;
+  }
+  .nav-links {
+    gap: 14px;
+  }
+  .impact-stats {
+    width: min(460px, calc(100% - 48px));
+  }
+  .stat {
+    min-width: 0;
+    flex: 1;
+  }
+  .trust-item {
+    padding: 0 12px;
+  }
+}
+
+/* --- <= 1000px --- */
+@media (max-width: 1000px) {
+  .project-card {
+    flex-basis: calc((100% - 24px) / 2);
+  }
+}
+
+/* --- <= 900px --- */
+@media (max-width: 900px) {
+  /* Logo: enlarge and keep this size at every width below 900px (no further shrinking) */
+  .brand img {
+    height: 250px;
+    width: auto;
+  }
+
+  /* Hamburger menu kicks in here: donate button + language switch move inside the menu */
+  .nav-links,
+  .nav-actions {
+    display: none;
+  }
+  .nav-links.open {
+    position: absolute;
+    display: flex;
+    top: 64px;
+    right: 0;
+    left: 0;
+    padding: 16px 16px 8px;
+    background: #fff;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: 0 10px 20px #0002;
+  }
+  .nav-links a {
+    padding: 9px;
+    border: 0;
+  }
+  .nav-actions.open {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 16px 16px;
+    background: #fff;
+    box-shadow: 0 10px 20px #0002;
+  }
+  .nav-actions.open .account,
+  .nav-actions.open .donate-button {
+    width: 100%;
+    height: 46px;
+    font-size: 13px;
+  }
+  .menu-button {
+    display: block;
+  }
+
+  /* Mission / Vision / Goals: image hides, each column becomes its own card */
+  .mvg-section {
+    margin: 64px 14px 42px;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+  .mvg-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+    border: none; /* Remove the shared border that used to wrap all cards */
+    border-radius: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+  .mvg-bg-image {
+    display: none; /* Background image is not shown on mobile */
+  }
+  .mvg-col:not(:last-child)::after {
+    display: none; /* Divider line not needed once each card is standalone */
+  }
+  .mvg-col {
+    max-width: 320px; /* Keep each card narrower than full width so it reads roughly square */
+    margin: 0 auto;
+    padding: 38px 26px;
+    background: #fff;
+    border: 1px solid #ede3cc;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .mvg-icon-circle {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 20px;
+  }
+  .mvg-title {
+    font-size: 21px;
+  }
+  .mvg-text {
+    font-size: 15px;
+  }
+  .mvg-list {
+    font-size: 14.5px;
+  }
+  .nav-inner {
+    padding: 0 18px 0 12px;
+    justify-content: space-between;
+  }
+
+  /* Footer: drop to 2 columns */
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 28px;
+  }
+}
+
+/* --- <= 760px --- */
+@media (max-width: 760px) {
+  .navbar {
+    height: 64px;
+  }
+  .nav-inner {
+    padding: 0 18px 0 12px;
+    justify-content: space-between;
+  }
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .hero-media {
+    min-height: 260px;
+    order: 2;
+  }
+  .hero-content {
+    order: 1;
+    padding: 39px 25px 31px;
+  }
+  .hero h1 {
+    font-size: 45px;
+    letter-spacing: -2px;
+  }
+  .hero-copy {
+    font-size: 13px;
+  }
+  .hero-actions {
+    gap: 9px;
+  }
+  .hero-actions .big,
+  .hero-actions .outline-button {
+    min-width: 0;
+    flex: 1;
+    padding: 0 10px;
+    font-size: 11px;
+  }
+
+  .impact-stats {
+    right: 15px;
+    left: 15px;
+    bottom: 18px;
+    width: auto;
+    height: 108px;
+    border-radius: 17px;
+  }
+  .stat {
+    min-width: 0;
+  }
+  .stat + .stat:after {
+    right: -18px;
+    height: 58px;
+  }
+  .stat strong {
+    font-size: 15px;
+  }
+  .stat span {
+    font-size: 10px;
+  }
+
+  .trust-wrap {
+    padding: 0 14px;
+    margin-top: 48px;
+  }
+  .trust-bar {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 8px;
+  }
+  .trust-item {
+    border-left: 1px solid #eee;
+    padding: 11px 6px;
+    gap: 7px;
+  }
+  .trust-item:nth-child(2) {
+    border: 0;
+  }
+  .trust-icon {
+    width: 37px;
+    height: 37px;
+  }
+  .trust-icon svg {
+    width: 20px;
+  }
+  .trust-item strong {
+    font-size: 10px;
+  }
+  .trust-item small {
+    font-size: 8px;
+  }
+
+  .projects-section {
+    min-height: 0;
+    padding: 40px 14px 56px;
+  }
+  .section-heading {
+    align-items: flex-start;
+  }
+  .section-heading h2 {
+    font-size: 17px;
+  }
+  .project-carousel {
+    gap: 14px;
+  }
+  .project-image {
+    height: 155px;
+  }
+  .project-body {
+    padding: 13px;
+  }
+  .project-body p {
+    font-size: 11px;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+
+  .brand {
+    font-size: 21px;
+  }
+}
+
+/* --- <= 700px --- */
+@media (max-width: 700px) {
+  /* Featured Projects: cards were stretching full width (and, via aspect-ratio,
+     getting very tall). Shrink the width so height shrinks with it and the
+     card stays a manageable square instead of filling the screen. */
+  .project-card {
+    flex: 0 0 min(240px, 78%);
+  }
+}
+
+/* --- <= 560px --- */
+@media (max-width: 560px) {
+  footer {
+    padding: 42px 20px 0;
+  }
+  footer p {
+    max-width: 100%;
+  }
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+    justify-items: center;
+  }
+  .footer-bottom {
+    margin-top: 32px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 0;
   }
 }

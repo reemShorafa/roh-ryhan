@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import TrustBar from "./components/TrustBar";
+import MissionVisionGoals from "./components/mission";
+import ProjectsSection from "./components/ProjectsSection";
+import Footer from "./components/Footer";
 function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [language, setLanguage] = useState("ar");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      className="site-shell"
+      dir={language === "ar" ? "rtl" : "ltr"}
+      lang={language}
+    >
+      <Navbar
+        language={language}
+        setLanguage={setLanguage}
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+      />
+      <main>
+        <Hero language={language} />
+        <TrustBar language={language} />
+        <MissionVisionGoals language={language} />
+        <ProjectsSection language={language} />
+      </main>
+      <Footer language={language} />
     </div>
   );
 }

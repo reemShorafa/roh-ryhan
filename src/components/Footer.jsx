@@ -1,201 +1,356 @@
 import { useState } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
 
-const copy = {
-  ar: {
-    logoLabel: "مكان شعار روح وريحان",
-    contact: "تواصل معنا",
-    address: "فلسطين",
-    quickLinks: "روابط سريعة",
-    links: [
-      ["من نحن", "#top"],
-      ["مشاريعنا", "#projects"],
-      ["أخبارنا", "#top"],
-      ["تبرع الآن", "#donate"],
-      ["تطوع معنا", "#top"],
-      ["اتصل بنا", "#contact"],
-    ],
-    importantLinksTitle: "روابط مهمة",
-    importantLinks: [
-      ["سياسة الخصوصية", "#"],
-      ["تراخيص الجمعية", "#"],
-      ["شروط الاستخدام", "#"],
-      ["سياسة التبرعات", "#"],
-    ],
-    newsletterTitle: "النشرة البريدية والتواصل",
-    newsletterPlaceholder: "بريدك الإلكتروني",
-    newsletterButton: "اشترك",
-    follow: "تابعونا على",
-    copyright: "© 2026 روح وريحان — جميع الحقوق محفوظة",
-    privacy: "سياسة الخصوصية",
-    terms: "شروط الاستخدام",
-  },
-  en: {
-    logoLabel: "Roh & Ryhan logo placeholder",
-    contact: "Contact Us",
-    address: "Palestine",
-    quickLinks: "Quick Links",
-    links: [
-      ["About Us", "#top"],
-      ["Our Projects", "#projects"],
-      ["News", "#top"],
-      ["Donate Now", "#donate"],
-      ["Volunteer With Us", "#top"],
-      ["Contact Us", "#contact"],
-    ],
-    importantLinksTitle: "Important Links",
-    importantLinks: [
-      ["Privacy Policy", "#"],
-      ["Association Licenses", "#"],
-      ["Terms of Use", "#"],
-      ["Donation Policy", "#"],
-    ],
-    newsletterTitle: "Newsletter & Follow Us",
-    newsletterPlaceholder: "Your email",
-    newsletterButton: "Subscribe",
-    follow: "Follow us on",
-    copyright: "© 2026 Roh & Ryhan — All Rights Reserved",
-    privacy: "Privacy Policy",
-    terms: "Terms of Use",
-  },
-};
+function Footer({ language = "ar" }) {
+  const isArabic = language === "ar";
 
-// أيقونات سوشال ميديا مخصصة (SVG) لأن lucide-react ما فيها أيقونات براندات
-const FacebookIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
-  </svg>
-);
-const InstagramIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.256 1.216.6 1.772 1.153a4.908 4.908 0 011.153 1.772c.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772 4.915 4.915 0 01-1.772 1.153c-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 01-1.772-1.153 4.904 4.904 0 01-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 011.153-1.772A4.897 4.897 0 015.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 5a5 5 0 100 10 5 5 0 000-10zm0 8.25A3.25 3.25 0 1112 8.75a3.25 3.25 0 010 6.5zm5.2-8.475a1.17 1.17 0 100-2.34 1.17 1.17 0 000 2.34z" />
-  </svg>
-);
-const XIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-const LinkedinIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 110-4.124 2.062 2.062 0 010 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-);
-const YoutubeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-  </svg>
-);
+  const [openSection, setOpenSection] = useState(null);
 
-const socialLinks = [
-  { name: "X", icon: XIcon, href: "#top" },
-  { name: "Instagram", icon: InstagramIcon, href: "#top" },
-  { name: "Facebook", icon: FacebookIcon, href: "#top" },
-  { name: "YouTube", icon: YoutubeIcon, href: "#top" },
-  { name: "LinkedIn", icon: LinkedinIcon, href: "#top" },
-];
-
-export default function Footer({ language }) {
-  const t = copy[language];
-  const [email, setEmail] = useState("");
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (!email) return;
-    // TODO: ربط الفورم بخدمة النشرة البريدية الفعلية
-    console.log("Newsletter subscribe:", email);
-    setEmail("");
+  const toggleSection = (section) => {
+    setOpenSection(openSection === section ? null : section);
   };
 
+  const content = {
+    ar: {
+      quickLinks: "روابط سريعة",
+      importantLinks: "روابط مهمة",
+      contact: "تواصل معنا",
+
+      home: "الرئيسية",
+      about: "من نحن",
+      projects: "مشاريعنا",
+      news: "أخبارنا",
+      donate: "تبرع الآن",
+      volunteer: "تطوع معنا",
+      contactLink: "اتصل بنا",
+
+      privacy: "سياسة الخصوصية",
+      terms: "شروط الاستخدام",
+      licenses: "تراخيص الجمعية",
+      donations: "سياسة التبرعات",
+      faq: "الأسئلة الشائعة",
+
+      phone: "00 000 9200",
+      email: "info@rooh.org",
+      location: "فلسطين - غزة",
+
+      map: "شاهد موقعنا على الخريطة",
+
+      description:
+        "جمعية روح وريحان تعمل على تقديم المساعدات الإنسانية والإغاثية والتنموية لأهلنا في غزة، من خلال مشاريع نوعية وشراكات فاعلة ومجتمع داعم.",
+
+      copyright: "جميع الحقوق محفوظة © 2025 جمعية روح وريحان",
+      slogan: "معًا .. نصنع أثرًا يدوم",
+
+      badge: "مسجلة ومعتمدة",
+      badge2: "لدى الجهات الرسمية",
+
+      gaza1: "غزة",
+      gaza2: "ستبقى",
+
+      life: "حياة",
+      dignity: "أكثر كرامة",
+
+      future: "مستقبل",
+      hope: "أكثر أملًا",
+
+      community: "مجتمع",
+      connected: "أكثر تماسكًا",
+
+      hashtag: "#معًا_لأجلهم",
+    },
+
+    en: {
+      quickLinks: "Quick Links",
+      importantLinks: "Important Links",
+      contact: "Contact Us",
+
+      home: "Home",
+      about: "About Us",
+      projects: "Our Projects",
+      news: "News",
+      donate: "Donate Now",
+      volunteer: "Volunteer",
+      contactLink: "Contact Us",
+
+      privacy: "Privacy Policy",
+      terms: "Terms of Use",
+      licenses: "Organization Licenses",
+      donations: "Donation Policy",
+      faq: "FAQ",
+
+      phone: "00 000 9200",
+      email: "info@rooh.org",
+      location: "Palestine - Gaza",
+
+      map: "View us on the map",
+
+      description:
+        "Rooh & Rayhan Association works to provide humanitarian, relief and development assistance to our people in Gaza through impactful projects, active partnerships and a supportive community.",
+
+      copyright: "All rights reserved © 2025 Rooh & Rayhan Association",
+      slogan: "Together .. We create a lasting impact",
+
+      badge: "Registered & Accredited",
+      badge2: "By official authorities",
+
+      gaza1: "Gaza",
+      gaza2: "Will Remain",
+
+      life: "Life",
+      dignity: "More Dignified",
+
+      future: "Future",
+      hope: "More Hope",
+
+      community: "Community",
+      connected: "More Connected",
+
+      hashtag: "#Together_ForThem",
+    },
+  };
+
+  const t = content[language];
+
   return (
-    <footer id="contact">
-      <div className="footer-inner">
-        <section className="footer-about">
-          <div
-            className="footer-logo-placeholder"
-            aria-label={t.logoLabel}
-            role="img"
-          />
-          <h3>{t.contact}</h3>
-          <a href="tel:920000000">
-            <Phone size={16} />
-            9200 000 00
-          </a>
-          <a href="mailto:info@rooh.org">
-            <Mail size={16} />
-            info@rooh.org
-          </a>
-          <span>
-            <MapPin size={16} />
-            {t.address}
-          </span>
-        </section>
+    <footer
+      className={`footer ${isArabic ? "footer-ar" : "footer-en"}`}
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      <div className="footer-wrapper">
+        {/* =========================
+            MOBILE ACCORDIONS
+        ========================== */}
 
-        <nav className="footer-links" aria-label={t.quickLinks}>
-          <h3>{t.quickLinks}</h3>
-          {t.links.map(([label, href]) => (
-            <a href={href} key={label}>
-              {label}
-            </a>
-          ))}
-        </nav>
-
-        <nav
-          className="footer-important-links"
-          aria-label={t.importantLinksTitle}
-        >
-          <h3>{t.importantLinksTitle}</h3>
-          {t.importantLinks.map(([label, href]) => (
-            <a
-              href={href}
-              key={label}
-              target="_blank"
-              rel="noopener noreferrer"
+        <div className="footer-mobile-accordions">
+          <div className="mobile-footer-item">
+            <button
+              className="mobile-accordion"
+              onClick={() => toggleSection("quick")}
             >
-              {label}
-            </a>
-          ))}
-        </nav>
-
-        <section className="footer-newsletter-follow">
-          <h3>{t.newsletterTitle}</h3>
-          <form className="footer-newsletter-form" onSubmit={handleSubscribe}>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder={t.newsletterPlaceholder}
-              aria-label={t.newsletterPlaceholder}
-              className="footer-newsletter-input"
-            />
-            <button type="submit" className="footer-newsletter-submit">
-              {t.newsletterButton}
+              <span>{t.quickLinks}</span>
+              <span className="accordion-arrow">
+                {openSection === "quick" ? "⌃" : "⌄"}
+              </span>
             </button>
-          </form>
-          <p className="footer-follow-label">{t.follow}</p>
-          <div className="social-badges">
-            {socialLinks.map(({ name, icon: Icon, href }) => (
-              <a
-                href={href}
-                aria-label={name}
-                key={name}
-                className="social-icon"
-              >
-                <Icon />
-              </a>
-            ))}
-          </div>
-        </section>
-      </div>
 
-      <div className="footer-bottom">
-        <span>{t.copyright}</span>
-        <nav aria-label={language === "ar" ? "روابط قانونية" : "Legal links"}>
-          <a href="#top">{t.privacy}</a>
-          <a href="#top">{t.terms}</a>
-        </nav>
+            <div
+              className={`mobile-accordion-content ${
+                openSection === "quick" ? "open" : ""
+              }`}
+            >
+              <a href="#home">{t.home}</a>
+              <a href="#about">{t.about}</a>
+              <a href="#projects">{t.projects}</a>
+              <a href="#news">{t.news}</a>
+              <a href="#donate">{t.donate}</a>
+              <a href="#volunteer">{t.volunteer}</a>
+              <a href="#contact">{t.contactLink}</a>
+            </div>
+          </div>
+
+          <div className="mobile-footer-item">
+            <button
+              className="mobile-accordion"
+              onClick={() => toggleSection("important")}
+            >
+              <span>{t.importantLinks}</span>
+              <span className="accordion-arrow">
+                {openSection === "important" ? "⌃" : "⌄"}
+              </span>
+            </button>
+
+            <div
+              className={`mobile-accordion-content ${
+                openSection === "important" ? "open" : ""
+              }`}
+            >
+              <a href="#privacy">{t.privacy}</a>
+              <a href="#terms">{t.terms}</a>
+              <a href="#licenses">{t.licenses}</a>
+              <a href="#donations">{t.donations}</a>
+              <a href="#faq">{t.faq}</a>
+            </div>
+          </div>
+        </div>
+
+        {/* =========================
+            DESKTOP TOP
+        ========================== */}
+
+        <div className="footer-top">
+          {/* ABOUT / LOGO */}
+
+          <div className="footer-section footer-about">
+            <div className="footer-logo-placeholder">
+              <span>LOGO</span>
+            </div>
+
+            <h4>
+              {isArabic
+                ? "معًا .. نعيد الأمل إلى غزة"
+                : "Together .. We Bring Hope to Gaza"}
+            </h4>
+
+            <p>{t.description}</p>
+
+            {/* SOCIAL */}
+
+            <div className="footer-social">
+              <a href="#facebook" aria-label="Facebook">
+                f
+              </a>
+
+              <a href="#x" aria-label="X">
+                𝕏
+              </a>
+
+              <a href="#youtube" aria-label="YouTube">
+                ▶
+              </a>
+
+              <a href="#instagram" aria-label="Instagram">
+                ◎
+              </a>
+
+              <a href="#whatsapp" aria-label="WhatsApp">
+                ◉
+              </a>
+            </div>
+
+            <div className="footer-hashtag">{t.hashtag}</div>
+          </div>
+
+          {/* QUICK LINKS */}
+
+          <div className="footer-section footer-links-section">
+            <h3>
+              <span className="footer-heading-icon">🔗</span>
+              {t.quickLinks}
+            </h3>
+
+            <div className="footer-links">
+              <a href="#home">{t.home}</a>
+              <a href="#about">{t.about}</a>
+              <a href="#projects">{t.projects}</a>
+              <a href="#news">{t.news}</a>
+              <a href="#donate">{t.donate}</a>
+              <a href="#volunteer">{t.volunteer}</a>
+              <a href="#contact">{t.contactLink}</a>
+            </div>
+          </div>
+
+          {/* IMPORTANT LINKS */}
+
+          <div className="footer-section footer-links-section">
+            <h3>
+              <span className="footer-heading-icon">▤</span>
+              {t.importantLinks}
+            </h3>
+
+            <div className="footer-links">
+              <a href="#privacy">{t.privacy}</a>
+              <a href="#terms">{t.terms}</a>
+              <a href="#licenses">{t.licenses}</a>
+              <a href="#donations">{t.donations}</a>
+              <a href="#faq">{t.faq}</a>
+            </div>
+          </div>
+
+          {/* CONTACT */}
+
+          <div className="footer-section footer-contact">
+            <h3>
+              <span className="footer-heading-icon">♧</span>
+              {t.contact}
+            </h3>
+
+            <div className="contact-row">
+              <span>☎</span>
+              <p>{t.phone}</p>
+            </div>
+
+            <div className="contact-row">
+              <span>✉</span>
+              <p>{t.email}</p>
+            </div>
+
+            <div className="contact-row">
+              <span>⌖</span>
+              <p>{t.location}</p>
+            </div>
+
+            {/* MAP */}
+
+            <a href="#map" className="map-button">
+              <div className="map-placeholder">⌖</div>
+
+              <span>{t.map}</span>
+
+              <b>{isArabic ? "←" : "→"}</b>
+            </a>
+          </div>
+        </div>
+
+        {/* =========================
+            VALUES
+        ========================== */}
+
+        <div className="footer-values">
+          <div className="value-item">
+            <span className="value-icon">♡</span>
+
+            <strong>{t.life}</strong>
+
+            <small>{t.dignity}</small>
+          </div>
+
+          <div className="value-item">
+            <span className="value-icon">❋</span>
+
+            <strong>{t.future}</strong>
+
+            <small>{t.hope}</small>
+          </div>
+
+          <div className="value-item">
+            <span className="value-icon">♧</span>
+
+            <strong>{t.community}</strong>
+
+            <small>{t.connected}</small>
+          </div>
+        </div>
+
+        {/* =========================
+            SKYLINE
+        ========================== */}
+
+        <div className="footer-skyline">
+          <div className="footer-skyline-content">
+            <div className="footer-gaza">
+              <span>{t.gaza1}</span>
+              <span>{t.gaza2}</span>
+              <b>♡</b>
+            </div>
+
+            <div className="footer-copyright">
+              <p>{t.copyright}</p>
+              <span>{t.slogan}</span>
+            </div>
+
+            <div className="footer-badge">
+              <div className="badge-circle">❋</div>
+
+              <div>
+                <strong>{t.badge}</strong>
+                <small>{t.badge2}</small>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
 }
+
+export default Footer;

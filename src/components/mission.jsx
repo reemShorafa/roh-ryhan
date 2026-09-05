@@ -31,6 +31,16 @@ const listVariants = {
   },
 };
 
+// Heading fades/slides in the same way the cards do.
+const headingVariants = {
+  hidden: { opacity: 0, y: 15 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
 const icons = {
   vision: (
     <svg
@@ -83,6 +93,7 @@ const icons = {
 const copy = {
   ar: {
     dir: "rtl",
+    sectionTitle: " عن الجمعية",
     items: [
       {
         key: "vision",
@@ -113,6 +124,7 @@ const copy = {
   },
   en: {
     dir: "ltr",
+    sectionTitle: "about the association ",
     items: [
       {
         key: "vision",
@@ -211,13 +223,26 @@ export default function MissionVisionGoals({ language = "ar" }) {
   const t = copy[language];
 
   return (
-    <section className="mvg-section" dir={t.dir}>
-      <img src={bgImage} alt="" className="mvg-bg-image" />
-      <div className="mvg-grid">
-        {t.items.map((item) => (
-          <MissionCard item={item} key={item.key} />
-        ))}
-      </div>
-    </section>
+    <>
+      <motion.p
+        className="mvg-heading"
+        dir={t.dir}
+        variants={headingVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.4 }}
+      >
+        {t.sectionTitle}
+      </motion.p>
+
+      <section className="mvg-section" dir={t.dir}>
+        <img src={bgImage} alt="" className="mvg-bg-image" />
+        <div className="mvg-grid">
+          {t.items.map((item) => (
+            <MissionCard item={item} key={item.key} />
+          ))}
+        </div>
+      </section>
+    </>
   );
 }

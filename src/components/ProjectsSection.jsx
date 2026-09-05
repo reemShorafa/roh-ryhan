@@ -140,7 +140,6 @@ export default function ProjectsSection({ language }) {
     const section = sectionRef.current;
     if (!section) return undefined;
 
-    // Run the entrance sequence once, when this section actually enters view.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -182,7 +181,6 @@ export default function ProjectsSection({ language }) {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
-    // Limit DOM reads and state updates to one frame while the user drags/swipes.
     if (scrollFrame.current) return;
     scrollFrame.current = requestAnimationFrame(() => {
       const carouselRect = carousel.getBoundingClientRect();
@@ -241,9 +239,7 @@ export default function ProjectsSection({ language }) {
     <section className="projects-section" id="projects" ref={sectionRef}>
       <div className="projects-column">
         <div className="section-heading">
-          <h2>
-            {title} <em></em>
-          </h2>
+          <h2>{title}</h2>
         </div>
         <motion.div
           className="project-carousel"

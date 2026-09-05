@@ -350,16 +350,26 @@
 /* ==========================================================================
      Mission / Vision / Goals Section
      ========================================================================== */
+.mvg-heading {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #174d3b;
+  text-align: start;
+  max-width: 1080px;
+  margin: 0 auto 24px;
+  padding: 0 34px;
+}
 .mvg-section {
   position: relative;
   border-radius: 18px;
-  max-width: 1295px;
-  margin: 45px auto 56px;
+  max-width: 1080px;
+  margin: 0 auto 45px;
   overflow: hidden;
 }
 
 /* Background image is absolutely positioned so the box's height is driven
-     by the content in .mvg-grid, not by the image's natural size */
+             by the content in .mvg-grid, not by the image's natural size */
 .mvg-bg-image {
   position: absolute;
   inset: 0;
@@ -378,7 +388,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 0;
-  padding: 56px 48px;
+  padding: 40px 34px;
   align-items: center;
   border: 1px solid #ede3cc;
   border-radius: 18px;
@@ -390,78 +400,78 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 48px 44px;
+  padding: 28px 22px;
   position: relative;
   box-sizing: border-box;
 }
 
-.mvg-col:not(:last-child)::after {
+.mvg-col:not(:first-child)::after {
   content: "";
   position: absolute;
   top: 6px;
   bottom: 6px;
-  left: 0;
+  inset-inline-start: 0;
   width: 1px;
   background: #e5d8bb;
 }
 
 .mvg-icon-circle {
-  width: 98px;
-  height: 98px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   background: #dfe7d9;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 .mvg-icon-circle svg {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
 }
 
 .mvg-title {
-  margin: 0 0 14px;
-  font-size: 23px;
+  margin: 0 0 10px;
+  font-size: 20px;
   font-weight: 700;
   color: #123e32;
 }
 
 .mvg-underline {
   display: block;
-  width: 36px;
+  width: 30px;
   height: 3px;
   border-radius: 2px;
   background: #d9ad57;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .mvg-text {
   margin: 0;
-  font-size: 16px;
-  line-height: 2.15;
+  font-size: 15.5px;
+  line-height: 1.85;
   color: #6b6a63;
-  max-width: 260px;
+  max-width: 240px;
 }
 
 .mvg-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  text-align: right;
-  font-size: 15.5px;
-  line-height: 2.25;
+  text-align: start;
+  font-size: 14.5px;
+  line-height: 1.95;
   color: #6b6a63;
 }
 .mvg-list li {
   position: relative;
-  padding-right: 18px;
+  padding-inline-start: 16px;
 }
 .mvg-list li::before {
   content: "";
   position: absolute;
-  right: 0;
-  top: 13px;
+  inset-inline-start: 0;
+  top: 11px;
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -469,10 +479,10 @@
 }
 
 /* ==========================================================================
-     Projects Section
-     ========================================================================== */
+         Projects Section
+         ========================================================================== */
 .projects-section {
-  max-width: 1295px;
+  max-width: 1080px;
   min-height: 510px;
   padding: 52px 24px 88px;
   margin: 45px auto 56px;
@@ -485,9 +495,12 @@
   align-items: center;
   justify-content: space-between;
   margin: 7px 0 34px;
+  padding: 0 16px;
 }
 .section-heading h2 {
   font-size: 30px;
+  font-weight: 700;
+  line-height: 1.3;
   margin: 0;
   color: #174d3b;
 }
@@ -610,7 +623,6 @@
 .slider-dots button.active {
   background: #126046;
 }
-
 /* ==========================================================================
      Footer
      ========================================================================== */

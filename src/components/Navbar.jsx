@@ -1,12 +1,23 @@
 import { Heart, Languages, Menu, X } from "lucide-react";
 import Brand from "./Brand";
 const links = {
-  ar: ["الرئيسية", "عن الجمعية", "مشاريعنا", "تقاريرنا", "الأخبار", "تواصل معنا"],
+  ar: [
+    "الرئيسية",
+    "عن الجمعية",
+    "مشاريعنا",
+    "تقاريرنا",
+    "الأخبار",
+    "تواصل معنا",
+  ],
   en: ["Home", "About us", "Our projects", "Reports", "News", "Contact us"],
 };
 
-export default function Navbar({ language, setLanguage, menuOpen, setMenuOpen }) {
-
+export default function Navbar({
+  language,
+  setLanguage,
+  menuOpen,
+  setMenuOpen,
+}) {
   return (
     <header className="navbar" id="top">
       <div className="nav-inner">

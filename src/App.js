@@ -2,11 +2,11 @@ import "./App.css";
 import { useState } from "react";
 
 import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
 import TrustBar from "./components/TrustBar";
 import MissionVisionGoals from "./components/mission";
 import ProjectsSection from "./components/ProjectsSection";
 import Footer from "./components/Footer";
+import Hero2 from "./components/hero2";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ function App() {
       />
 
       <main>
-        <Hero language={language} />
+        <Hero2 language={language} />
         <TrustBar language={language} />
         <MissionVisionGoals language={language} />
         <ProjectsSection language={language} />

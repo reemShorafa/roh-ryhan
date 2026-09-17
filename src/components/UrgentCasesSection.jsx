@@ -180,14 +180,6 @@ export default function UrgentCasesSection({ language = "ar" }) {
           </div>
           <h3>{t.sideTitle}</h3>
           <p>{t.sideText}</p>
-          <div className="urgent-cases-nav">
-            <button type="button" aria-label="Previous">
-              {isArabic ? <ChevronRight size={21} /> : <ChevronLeft size={21} />}
-            </button>
-            <button type="button" aria-label="Next">
-              {isArabic ? <ChevronLeft size={21} /> : <ChevronRight size={21} />}
-            </button>
-          </div>
         </ScrollReveal>
 
         <ScrollReveal as="article" className="urgent-case-featured" delay={0.16}>

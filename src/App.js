@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import TrustBar from "./components/TrustBar";
@@ -12,7 +12,16 @@ import UrgentCasesSection from "./components/UrgentCasesSection";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [language, setLanguage] = useState("ar");
+  const [language, setLanguage] = useState(() => {
+    const savedLanguage = localStorage.getItem("site-language");
+    return savedLanguage === "en" || savedLanguage === "ar"
+      ? savedLanguage
+      : "ar";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("site-language", language);
+  }, [language]);
 
   return (
     <div

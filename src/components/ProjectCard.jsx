@@ -6,8 +6,15 @@ export default function ProjectCard({ project, language, variants }) {
     : { raised: "Raised", goal: "Goal", currency: "SAR" };
 
   return (
-    <motion.article className="project-card" variants={variants}>
-      <div className="project-image" style={{ backgroundImage: `url(${project.image})` }}>
+    <motion.article
+      className="project-card"
+      variants={variants}
+    >
+      <div className="project-image">
+        <span
+          className="project-image-fill"
+          style={{ backgroundImage: `url(${project.image})` }}
+        />
         <span className="category">{project.category}</span>
       </div>
       <div className="project-body">

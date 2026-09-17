@@ -12,6 +12,8 @@ const links = {
   en: ["Home", "About us", "Our projects", "Reports", "News", "Contact us"],
 };
 
+const sectionLinks = ["#home", "#about", "#projects", "#top", "#news", "#footer"];
+
 export default function Navbar({
   language,
   setLanguage,
@@ -26,7 +28,7 @@ export default function Navbar({
           {links[language].map((x, i) => (
             <a
               className={i === 0 ? "active" : ""}
-              href={i === 2 ? "#projects" : "#top"}
+              href={sectionLinks[i]}
               key={x}
               onClick={() => setMenuOpen(false)}
             >

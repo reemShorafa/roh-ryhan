@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import bgImage from "../img/5555555555.png";
 
-// Each card staggers its direct children from top to bottom when it enters view.
 const cardVariants = {
   hidden: {},
   visible: {
@@ -13,7 +11,6 @@ const cardVariants = {
   },
 };
 
-// Only opacity and transform are animated to keep scrolling smooth.
 const itemVariants = {
   hidden: { opacity: 0, y: 25 },
   visible: {
@@ -23,7 +20,6 @@ const itemVariants = {
   },
 };
 
-// The goals list adds a smaller stagger between its individual bullet points.
 const listVariants = {
   hidden: {},
   visible: {
@@ -31,7 +27,6 @@ const listVariants = {
   },
 };
 
-// Heading fades/slides in the same way the cards do.
 const headingVariants = {
   hidden: { opacity: 0, y: 15 },
   visible: {
@@ -43,14 +38,7 @@ const headingVariants = {
 
 const icons = {
   vision: (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#123e32"
-      strokeWidth="1.6"
-    >
+    <svg viewBox="0 0 24 24" fill="none" stroke="#123e32" strokeWidth="1.7">
       <path
         d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12Z"
         strokeLinejoin="round"
@@ -59,28 +47,14 @@ const icons = {
     </svg>
   ),
   mission: (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#123e32"
-      strokeWidth="1.6"
-    >
+    <svg viewBox="0 0 24 24" fill="none" stroke="#123e32" strokeWidth="1.7">
       <circle cx="12" cy="12" r="9" />
       <circle cx="12" cy="12" r="4.2" />
       <circle cx="12" cy="12" r="0.9" fill="#123e32" />
     </svg>
   ),
   goals: (
-    <svg
-      width="34"
-      height="34"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="#123e32"
-      strokeWidth="1.6"
-    >
+    <svg viewBox="0 0 24 24" fill="none" stroke="#123e32" strokeWidth="1.7">
       <path
         d="M6 21V4a1 1 0 0 1 1-1h10.2a.5.5 0 0 1 .4.8L15 8l2.6 4.2a.5.5 0 0 1-.4.8H7a1 1 0 0 0-1 1"
         strokeLinecap="round"
@@ -93,7 +67,9 @@ const icons = {
 const copy = {
   ar: {
     dir: "rtl",
-    sectionTitle: " عن الجمعية",
+    eyebrow: "من نحن",
+    sectionTitle: "عن الجمعية",
+    subtitle: "معا نحو مجتمع أكثر عطاء وإنسانية",
     items: [
       {
         key: "vision",
@@ -124,7 +100,9 @@ const copy = {
   },
   en: {
     dir: "ltr",
-    sectionTitle: "about the association ",
+    eyebrow: "Who we are",
+    sectionTitle: "About the association",
+    subtitle: "Together toward a more generous and humane community",
     items: [
       {
         key: "vision",
@@ -164,7 +142,6 @@ function MissionCard({ item }) {
 
     if (!card) return undefined;
 
-    // Each card observes itself and disconnects after its first viewport entry.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -181,11 +158,10 @@ function MissionCard({ item }) {
 
   return (
     <motion.div
-      className="mvg-col"
+      className={`mvg-col mvg-col-${item.key}`}
       ref={cardRef}
       variants={cardVariants}
       initial="hidden"
-      // Existing animation variants stay unchanged; only their trigger is observer-driven.
       animate={hasEnteredViewport ? "visible" : "hidden"}
     >
       <motion.div className="mvg-icon-circle" variants={itemVariants}>
@@ -195,8 +171,6 @@ function MissionCard({ item }) {
       <motion.h3 className="mvg-title" variants={itemVariants}>
         {item.title}
       </motion.h3>
-
-      <motion.span className="mvg-underline" variants={itemVariants} />
 
       {item.type === "text" ? (
         <motion.p className="mvg-text" variants={itemVariants}>
@@ -208,8 +182,8 @@ function MissionCard({ item }) {
           variants={listVariants}
           aria-label={item.title}
         >
-          {item.content.map((line, index) => (
-            <motion.li key={index} variants={itemVariants}>
+          {item.content.map((line) => (
+            <motion.li key={line} variants={itemVariants}>
               {line}
             </motion.li>
           ))}
@@ -223,26 +197,26 @@ export default function MissionVisionGoals({ language = "ar" }) {
   const t = copy[language];
 
   return (
-    <>
-      <motion.p
+    <section className="mvg-wrap" id="about" dir={t.dir}>
+      <motion.div
         className="mvg-heading"
-        dir={t.dir}
         variants={headingVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.4 }}
       >
-        {t.sectionTitle}
-      </motion.p>
+        <span>{t.eyebrow}</span>
+        <h2>{t.sectionTitle}</h2>
+        <p>{t.subtitle}</p>
+      </motion.div>
 
-      <section className="mvg-section" dir={t.dir}>
-        <img src={bgImage} alt="" className="mvg-bg-image" />
+      <div className="mvg-section">
         <div className="mvg-grid">
           {t.items.map((item) => (
             <MissionCard item={item} key={item.key} />
           ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

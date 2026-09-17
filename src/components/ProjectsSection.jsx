@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import ScrollReveal from "./ScrollReveal";
 
 const carouselVariants = {
   hidden: {},
@@ -13,6 +14,19 @@ const projectVariants = {
     opacity: 1,
     y: 0,
     transition: { duration: 0.75, ease: "easeOut" },
+  },
+};
+
+const headings = {
+  ar: {
+    eyebrow: "حملاتنا",
+    title: "أبرز المشاريع",
+    subtitle: "مشاريع إنسانية نعمل من خلالها على صناعة أثر مستدام",
+  },
+  en: {
+    eyebrow: "Our campaigns",
+    title: "Leading projects",
+    subtitle: "Humanitarian projects creating sustainable impact",
   },
 };
 
@@ -131,8 +145,7 @@ export default function ProjectsSection({ language }) {
   const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
   const [activePage, setActivePage] = useState(0);
   const [cardsPerPage, setCardsPerPage] = useState(3);
-  const title =
-    language === "ar" ? "أبرز المشاريع" : "Our leading projects in Gaza";
+  const heading = headings[language];
   const projectList = projects[language];
   const pageCount = Math.ceil(projectList.length / cardsPerPage);
 
@@ -238,9 +251,11 @@ export default function ProjectsSection({ language }) {
   return (
     <section className="projects-section" id="projects" ref={sectionRef}>
       <div className="projects-column">
-        <div className="section-heading">
-          <h2>{title}</h2>
-        </div>
+        <ScrollReveal className="section-heading">
+          <span>{heading.eyebrow}</span>
+          <h2>{heading.title}</h2>
+          <p>{heading.subtitle}</p>
+        </ScrollReveal>
         <motion.div
           className="project-carousel"
           ref={carouselRef}
@@ -262,8 +277,9 @@ export default function ProjectsSection({ language }) {
             />
           ))}
         </motion.div>
-        <div
+        <ScrollReveal
           className="slider-dots"
+          delay={0.12}
           aria-label={
             language === "ar" ? "التنقل بين المشاريع" : "Project navigation"
           }
@@ -280,7 +296,7 @@ export default function ProjectsSection({ language }) {
               type="button"
             />
           ))}
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -7,6 +7,8 @@ import MissionVisionGoals from "./components/mission";
 import ProjectsSection from "./components/ProjectsSection";
 import Footer from "./components/Footer";
 import Hero2 from "./components/hero2";
+import CampaignNewsletter from "./components/CampaignNewsletter";
+import UrgentCasesSection from "./components/UrgentCasesSection";
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,9 +29,11 @@ function App() {
 
       <main>
         <Hero2 language={language} />
-        <TrustBar language={language} />
         <MissionVisionGoals language={language} />
+        <TrustBar language={language} />
         <ProjectsSection language={language} />
+        <UrgentCasesSection language={language} />
+        <CampaignNewsletter language={language} />
       </main>
 
       <Footer language={language} />

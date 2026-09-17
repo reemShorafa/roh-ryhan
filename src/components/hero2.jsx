@@ -8,6 +8,7 @@ import {
   UserRound,
 } from "lucide-react";
 import "../DonationHero.css";
+import ScrollReveal from "./ScrollReveal";
 
 // TODO: Upload the final story video to public/videos/our-story.mp4.
 const STORY_VIDEO = "/videos/our-story.mp4";
@@ -87,11 +88,19 @@ export default function DonationHero({ language, videoSrc }) {
   const isArabic = language === "ar";
 
   return (
-    <section className="donation-hero" dir={isArabic ? "rtl" : "ltr"}>
+    <section className="donation-hero" id="home" dir={isArabic ? "rtl" : "ltr"}>
       <div className="donation-hero-container">
-        <HeroVideoOverlay copy={t} videoSrc={videoSrc || STORY_VIDEO} />
+        <ScrollReveal className="donation-hero-reveal" amount={0.15}>
+          <HeroVideoOverlay copy={t} videoSrc={videoSrc || STORY_VIDEO} />
+        </ScrollReveal>
 
-        <aside className="donation-hero-donations" aria-labelledby="latest-donations">
+        <ScrollReveal
+          as="aside"
+          className="donation-hero-donations"
+          aria-labelledby="latest-donations"
+          delay={0.12}
+          amount={0.15}
+        >
           <div className="donation-hero-donations-frame">
             <div className="donation-hero-donations-mark">
               <Heart size={38} />
@@ -130,7 +139,7 @@ export default function DonationHero({ language, videoSrc }) {
               {t.viewAll}
             </a>
           </div>
-        </aside>
+        </ScrollReveal>
       </div>
     </section>
   );

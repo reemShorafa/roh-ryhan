@@ -1,4 +1,5 @@
 import { Award, BadgeCheck, LockKeyhole, ShieldCheck } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 const items = {
   ar: [
@@ -16,18 +17,31 @@ const items = {
 };
 
 export default function TrustBar({ language }) {
+  const groupedItems = [
+    items[language].slice(0, 2),
+    items[language].slice(2, 4),
+  ];
+
   return (
     <section className="trust-wrap">
       <div className="trust-bar">
-        {items[language].map(({ i: Icon, t, d }) => (
-          <div className="trust-item" key={t}>
-            <div>
-              <strong>{t}</strong>
-              <small>{d}</small>
-            </div>
-            <span className="trust-icon">
-              <Icon size={27} />
-            </span>
+        {groupedItems.map((group, index) => (
+          <div className="trust-pair" key={index}>
+            {group.map(({ i: Icon, t, d }, itemIndex) => (
+              <ScrollReveal
+                className="trust-item"
+                delay={(index * 2 + itemIndex) * 0.08}
+                key={t}
+              >
+                <div>
+                  <strong>{t}</strong>
+                  <small>{d}</small>
+                </div>
+                <span className="trust-icon">
+                  <Icon size={27} />
+                </span>
+              </ScrollReveal>
+            ))}
           </div>
         ))}
       </div>

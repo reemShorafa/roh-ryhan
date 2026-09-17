@@ -15,9 +15,22 @@
   direction: ltr;
 }
 
+.donation-hero[dir="ltr"] .donation-hero-reveal {
+  order: 2;
+}
+
+.donation-hero[dir="ltr"] .donation-hero-donations {
+  order: 1;
+}
+
+.donation-hero-reveal,
 .donation-hero-main,
 .donation-hero-donations {
   height: 660px;
+}
+
+.donation-hero-reveal .donation-hero-main {
+  height: 100%;
 }
 
 .donation-hero-main {
@@ -263,14 +276,11 @@
 .donation-hero-donations-mark {
   width: 76px;
   height: 76px;
-  margin: 0 auto 26px;
-  border-radius: 50%;
+  margin: 18px auto 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
   color: var(--green);
-  box-shadow: 0 0 0 18px rgba(214, 168, 75, 0.09);
 }
 
 .donation-hero-donations-kicker {
@@ -476,5 +486,21 @@
   .donation-hero-donor-icon {
     width: 42px;
     height: 42px;
+  }
+}
+
+.donation-hero[dir="ltr"] .donation-hero-container {
+  grid-template-columns: minmax(380px, 0.9fr) minmax(0, 2.35fr);
+}
+
+@media (max-width: 1200px) {
+  .donation-hero[dir="ltr"] .donation-hero-container {
+    grid-template-columns: minmax(350px, 0.85fr) minmax(0, 1.55fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .donation-hero[dir="ltr"] .donation-hero-container {
+    grid-template-columns: 1fr;
   }
 }
